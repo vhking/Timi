@@ -6,6 +6,7 @@ namespace Timi.API.Models
     {
         public int UserId { get; set; }
         public string Name { get; set; }
+        public string Email { get; set; }
         public string Title { get; set; }
 
         public ICollection<Photo> Photos { get; set; }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Timi.API.Models
 {
@@ -13,12 +14,14 @@ namespace Timi.API.Models
 
         //May be removed on a later staget.
         public bool ActiveSession { get; set; }
-        
+
         public Contractor Contractors { get; set; }
         public User Users { get; set; }
         public WorkCategory WorkCategories { get; set; }
         public WorkType WorkTypes { get; set; }
         public Project Projects { get; set; }
+
+        public ICollection<Photo> Photos { get; set; }
 
     }
 }
