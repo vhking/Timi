@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
+using Dapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Timi.API.Helpers;
@@ -19,26 +20,14 @@ namespace Timi.API.Data
         }
         private string GetConnection()
         {
-            var connection = _configuration.GetSection("ConnectionStrings").GetSection("DefaultConnection").Value;
-
+            var connection = _configuration.GetSection("ConnectionStrings")
+                                           .GetSection("DefaultConnection")
+                                           .Value;
             return connection;
         }
         public void Add<T>(T entity) where T : class
         {
-            // var connectionString = this.GetConnection();
-            // using (var con = new SqlConnection(connectionString))
-            // {
-            //     try
-            //     {
-            //         con.Open();
-            //         var query = "INSERT INTO [entity]"
-            //     }
-            //     catch (System.Exception)
-            //     {
-                    
-            //         throw;
-            //     }
-            // }
+           throw new System.NotImplementedException();
         }
 
         public void Delete<T>(T entity) where T : class
@@ -46,9 +35,18 @@ namespace Timi.API.Data
             throw new System.NotImplementedException();
         }
 
-        public Task<T> Get<T>(int id) where T : class
+        public async Task<T> Get<T>(int id) where T : class
         {
-            throw new System.NotImplementedException();
+             var connectionString = this.GetConnection();
+            using (var db = new SqlConnection(connectionString))
+            {
+                string query = @"SELECT *
+                                 FROM [T]
+                                 WHERE [Id] = @Id";
+                var project = await db.QueryFirstOrDefaultAsync<T>(query, new { @Id = id });
+
+                return project;
+            }
         }
 
         public Task<Photo> GetMainPhotoForUser(int userId)

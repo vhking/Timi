@@ -4,9 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Timi.API.Models
 {
     public class Project
-    {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]       
+    {              
         public int Id { get; set; }    
         public string Name { get; set; }
         public string StartDate { get; set; }
@@ -19,7 +17,7 @@ namespace Timi.API.Models
         public double EstimateStender { get; set; }
         public double EstimateFinalWork { get; set; }
         public double EstimateGarage { get; set; }
-        public double PEstimateAssembly { get; set; }
-        public double PEstimateOther { get; set; }
+        public double EstimateAssembly { get; set; }
+        public double EstimateOther { get; set; }
     }
 }
